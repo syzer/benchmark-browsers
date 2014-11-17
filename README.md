@@ -6,7 +6,7 @@ HOWTO
 =====
 
         npm i -g serve
-        serve ./performance
+        serve ./performance -p $PORT
 
 TODO
 ====
