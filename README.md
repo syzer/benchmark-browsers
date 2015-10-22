@@ -1,5 +1,8 @@
 DEMO
 ====
+![picture](https://raw.github.com/syzer/benchmark-browsers/master/docs/benchmark-browsers.png)
+
+
 [https://benchmark-c9-syzer.c9.io/](link)
 
 
