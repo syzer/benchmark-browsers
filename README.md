@@ -6,6 +6,10 @@ DEMO
 [https://benchmark-c9-syzer.c9.io/](link)
 
 
+WAT
+===
+Multicore JavaScript test of your browser
+
 Contribute
 ==========
 add issues/requests on github
