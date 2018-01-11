@@ -26,17 +26,11 @@ Installation
         serve ./performance -p $PORT
 
 
-
-TODO
-====
-
-[ ] as Angular module
-
-[ ] Integrate with JS-Spark as module
-
 Roadmap
 =======
 [ ] show just a general score
 [ ] show score as graph bar
 [ ] show single vs multi threaded performance
 [ ] recalculate benchmark  after V8/JIT warm up
+[ ] as Angular module
+[ ] Integrate with JS-Spark as module
