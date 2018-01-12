@@ -1,9 +1,9 @@
 DEMO
 ====
-![picture](https://raw.github.com/syzer/benchmark-browsers/master/docs/benchmark-browsers.png)
+![picture](https://raw.github.com/syzer/benchmark-browsers/master/docs/benchmark-browsers.jpg)
 
 
-[https://benchmark-c9-syzer.c9.io/](link)
+[http://no-chance.surge.sh/](link)
 
 
 WAT
