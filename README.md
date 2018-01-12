@@ -1,6 +1,6 @@
 DEMO
 ====
-![picture](https://raw.github.com/syzer/benchmark-browsers/master/docs/benchmark-browsers.jpg)
+![picture](https://raw.github.com/syzer/benchmark-browsers/master/docs/benchmark-browsers.png)
 
 
 [http://no-chance.surge.sh/](link)
