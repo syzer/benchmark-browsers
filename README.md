@@ -3,7 +3,7 @@ DEMO
 ![picture](https://raw.github.com/syzer/benchmark-browsers/master/docs/benchmark-browsers.png)
 
 
-[http://no-chance.surge.sh/](link)
+[http://no-chance.surge.sh/](http://no-chance.surge.sh/)
 
 
 WAT
