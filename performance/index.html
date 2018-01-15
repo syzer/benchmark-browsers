@@ -18,7 +18,7 @@
         </div>
         <div class="col-md-8 col-sm-12">
             <h1>
-                Performance test.
+                Performance test on <span class="hidden" id="browser">:</span>
             </h1>
 
             <h2>
@@ -36,6 +36,14 @@
         <h1>
             Your Runtime: <span id="runtime"></span>
         </h1>
+
+        <h3>Performance comparing to fastest CPU:</h3>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0"
+                 aria-valuemax="100">25%
+            </div>
+        </div>
+        <h3>(More % is better)</h3>
 
         <h1>Other people results:</h1>
     </div>
@@ -157,24 +165,103 @@
 </body>
 
 <script>
-    var runTest = function () {
-        $('.btn').attr('disabled', 'disabled');
-        $('.running').text('Running....');
-        var time = new Date();
-        var p = new Parallel([42, 42, 42, 42, 42, 42]);
-        var logAndInform = function () {
-            $('#runtime').text(new Date() - time + ' ms');
-            $('#results').show('fast');
-            $('.btn').removeAttr("disabled");
-            $('.hidden').removeClass('hidden');
-            $('.running').text('');
-        };
+  $('.progress-bar').text(40 + '%').width(40 + '%');
+  var results = {
+    Firefox: { min: Number.MAX_VALUE, max: 0 },
+    Chrome: { min: Number.MAX_VALUE, max: 0 },
+    Safari: { min: Number.MAX_VALUE, max: 0 },
+    ie: { min: Number.MAX_VALUE, max: 0 }
+  };
 
-        function fib(n) {
-            return n < 2 ? 1 : fib(n - 1) + fib(n - 2);
-        }
+  var columnName = function(i) {
+    switch (i % 4) {
+      case 1:
+        return 'Firefox'
+      case 2:
+        return 'Chrome'
+      case 3:
+        return 'Safari'
+      default:
+        return 'ie'
+    }
+  };
 
-        p.map(fib).then(logAndInform);
+  $('#results').find('td').each(function (i, e) {
+    var val = Number($(this).html());
+    if (!val) return;
+    results[columnName(i)] = {
+      min: Math.min(val, results[columnName(i)].min),
+      max: Math.max(val, results[columnName(i)].max)
+    }
+  });
+
+  var runTest = function () {
+    $('.btn').attr('disabled', 'disabled');
+    $('.running').text('Running....');
+    var time = new Date();
+    var p = new Parallel([42, 42, 42, 42, 42, 42]);
+    var logAndInform = function () {
+      var runtime = new Date() - time;
+      $('#runtime').text(runtime + ' ms');
+      $('#results').show('fast');
+      $('.btn').removeAttr("disabled");
+      $('.hidden').removeClass('hidden');
+      $('.running').text('');
+
+      // rescaled
+      var min = results[getBrowser()].min
+      var max = results[getBrowser()].max
+      var speed = ((1 - (runtime - min) / (max - min)) * 100).toFixed(2);
+
+      $('.progress-bar').text(speed + '%').width(speed + '%')
+        .attr('aria-valuenow', speed)
+        .attr('aria-valuemax', results[getBrowser()].max)
+        .attr('aria-valuemix', results[getBrowser()].min);
     };
+
+    function fib(n) {
+      return n < 2 ? 1 : fib(n - 1) + fib(n - 2);
+    }
+
+    p.map(fib).then(logAndInform);
+  };
+
+  var getBrowser = function () {
+    return isFirefox
+      ? 'Firefox'
+      : (isChrome
+        ? 'Chrome'
+        : (isSafari
+          ? 'Safari'
+          : 'IE/Edge'))
+  };
+
+  $(function () {
+    $('#browser').removeClass('hidden').text(getBrowser());
+  })
+
+  // @see https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
+  // Opera 8.0+
+  var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+
+  // Firefox 1.0+
+  var isFirefox = typeof InstallTrigger !== 'undefined';
+
+  // Safari 3.0+ "[object HTMLElementConstructor]"
+  var isSafari = /constructor/i.test(window.HTMLElement) || (function (p) {
+    return p.toString() === "[object SafariRemoteNotification]";
+  })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification));
+
+  // Internet Explorer 6-11
+  var isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+  // Edge 20+
+  var isEdge = !isIE && !!window.StyleMedia;
+
+  // Chrome 1+
+  var isChrome = navigator.userAgent.indexOf("Chrome") !== -1;
+
+  // Blink engine detection
+  var isBlink = (isChrome || isOpera) && !!window.CSS;
 </script>
 </html>
