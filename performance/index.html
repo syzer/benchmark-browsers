@@ -8,6 +8,16 @@
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"
           rel="stylesheet">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+    <style>
+        .btn-xlg {
+            padding: 18px 28px;
+            font-size: 44px;
+            line-height: normal;
+            -webkit-border-radius: 8px;
+            -moz-border-radius: 8px;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
 <div class="container center">
@@ -24,7 +34,7 @@
             <h2>
                 Click to see the other people results.
             </h2>
-            <button type="button" onclick="runTest()" class="btn btn-success btn-lg">Run test!
+            <button id="run-test" type="button" onclick="runTest()" class="btn btn-success btn-xlg">Run test!
             </button>
             <p class="running"></p>
         </div>
@@ -207,6 +217,11 @@
       $('.btn').removeAttr("disabled");
       $('.hidden').removeClass('hidden');
       $('.running').text('');
+      $('#run-test').animate({
+        'font-size': 18,
+        'border-radius': 6,
+        'padding': '18px 28px'
+      }, 1000);
 
       // rescaled
       var min = results[getBrowser()].min
