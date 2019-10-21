@@ -29,8 +29,8 @@ Installation
 Roadmap
 =======
 [ ] show just a general score
-[ ] show score as graph bar
+[X] show score as graph bar
 [ ] show single vs multi threaded performance
 [ ] recalculate benchmark  after V8/JIT warm up
-[ ] as Angular module
+[!] as Angular module
 [ ] Integrate with JS-Spark as module
